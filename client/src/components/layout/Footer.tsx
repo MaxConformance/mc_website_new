@@ -1,91 +1,80 @@
 import { Link } from "wouter";
-import { Twitter, Linkedin, Instagram } from "lucide-react";
+import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import Logo from "@/components/Logo";
+import { site } from "@/config/site";
+
+const services = [
+  { href: "/services/risk-assessment", label: "Risk Assessment" },
+  { href: "/services/compliance-management", label: "Compliance Management" },
+  { href: "/services/security-audits", label: "Security Audits" },
+  { href: "/services/web-app-development", label: "Web App Development" },
+];
+
+const company = [
+  { href: "/about", label: "About Us" },
+  { href: "/product", label: "Synfiniti AI" },
+  { href: "/services", label: "All Services" },
+  { href: "/contact", label: "Contact" },
+];
+
+const linkCls = "text-slate-600 hover:text-magenta-600 transition-colors";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 py-12 mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div>
-            <div className="text-2xl font-bold gradient-text mb-4">
-              CyberGRC
-            </div>
-            <p className="text-slate-300 mb-4">
-              Leading cybersecurity GRC solutions that protect your business, ensure compliance, and drive growth through intelligent risk management.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-violet-400 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-violet-400 transition-colors">
+    <footer className="mt-24 border-t border-slate-200 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Logo className="h-12" />
+            <p className="text-slate-600 mt-5 text-sm leading-relaxed max-w-xs">{site.description}</p>
+            <div className="flex gap-3 mt-5">
+              <a href={site.social.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer"
+                 className="w-10 h-10 grid place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-navy-600 hover:text-magenta-600 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-violet-400 transition-colors">
-                <Instagram className="w-5 h-5" />
+              <a href={site.social.twitter} aria-label="X / Twitter" target="_blank" rel="noreferrer"
+                 className="w-10 h-10 grid place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-navy-600 hover:text-magenta-600 transition-colors">
+                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>
 
-          {/* Services Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/services/risk-assessment">
-                  <span className="text-slate-300 hover:text-violet-400 transition-colors cursor-pointer">
-                    Risk Assessment
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/compliance-management">
-                  <span className="text-slate-300 hover:text-violet-400 transition-colors cursor-pointer">
-                    Compliance Management
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/incident-response">
-                  <span className="text-slate-300 hover:text-violet-400 transition-colors cursor-pointer">
-                    Incident Response
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/security-audits">
-                  <span className="text-slate-300 hover:text-violet-400 transition-colors cursor-pointer">
-                    Security Audits
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/product">
-                  <span className="text-slate-300 hover:text-violet-400 transition-colors cursor-pointer">
-                    CyberGRC Platform
-                  </span>
-                </Link>
-              </li>
+          <nav aria-label="Services">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 mb-4">Services</h3>
+            <ul className="space-y-3 text-sm">
+              {services.map((l) => (
+                <li key={l.href}><Link href={l.href} className={linkCls}>{l.label}</Link></li>
+              ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact Details */}
+          <nav aria-label="Company">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 mb-4">Company</h3>
+            <ul className="space-y-3 text-sm">
+              {company.map((l) => (
+                <li key={l.href}><Link href={l.href} className={linkCls}>{l.label}</Link></li>
+              ))}
+            </ul>
+          </nav>
+
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <div className="space-y-2 text-slate-300">
-              <p>123 Cyber Security Boulevard</p>
-              <p>Tech District, San Francisco, CA 94105</p>
-              <p>Phone: +1 (555) 123-CYBER</p>
-              <p>Email: contact@cybergrc.com</p>
-              <div className="pt-2">
-                <p className="text-red-400 font-semibold">Emergency: 1-800-CYBER-911</p>
-              </div>
-            </div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-900 mb-4">Get in touch</h3>
+            <ul className="space-y-3 text-sm text-slate-600">
+              <li className="flex gap-2.5"><Mail className="w-4 h-4 mt-0.5 shrink-0 text-magenta-600" />
+                <a className={linkCls} href={`mailto:${site.email}`}>{site.email}</a></li>
+              {site.phones.map((ph) => (
+                <li key={ph} className="flex gap-2.5"><Phone className="w-4 h-4 mt-0.5 shrink-0 text-magenta-600" />
+                  <a className={linkCls} href={`tel:${ph.replace(/\s/g, "")}`}>{ph}</a></li>
+              ))}
+              {site.address && <li className="flex gap-2.5"><MapPin className="w-4 h-4 mt-0.5 shrink-0 text-magenta-600" />
+                <span>{site.address}</span></li>}
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-slate-600 mt-8 pt-8 text-center text-slate-400">
-          <p>&copy; 2024 CyberGRC Solutions. All rights reserved.</p>
+        <div className="border-t border-slate-200 mt-12 pt-6 text-sm text-slate-500 flex flex-col sm:flex-row gap-2 justify-between">
+          <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <p>{site.tagline}</p>
         </div>
       </div>
     </footer>

@@ -11,6 +11,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        navy: { 300: "#8a99d6", 400: "#4a5ea8", 500: "#2b3d8a", 600: "#1f2f78", 700: "#18245c" },
+        magenta: { 300: "#e58bb8", 400: "#d04a8c", 500: "#b8236f", 600: "#a01c61", 700: "#7f154c" },
         background: "var(--background)",
         foreground: "var(--foreground)",
         card: {

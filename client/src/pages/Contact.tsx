@@ -1,3 +1,5 @@
+import PageHero from "@/components/PageHero";
+import { Scene, scenes } from "@/components/scenes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,10 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Mail, Phone, MapPin, AlertTriangle, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Linkedin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { site } from "@/config/site";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -52,7 +55,7 @@ export default function Contact() {
     onError: (error) => {
       toast({
         title: "Failed to send message",
-        description: "Please try again or contact us directly at contact@cybergrc.com",
+        description: "Please try again or contact us directly at info@maxconformance.com",
         variant: "destructive",
       });
     },
@@ -65,14 +68,11 @@ export default function Contact() {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-6">
-            Get In <span className="gradient-text">Touch</span>
-          </h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Ready to strengthen your cybersecurity posture? Contact our experts for a consultation or to learn more about our services.
-          </p>
-        </div>
+        <PageHero
+          title={<>Get In <span className="gradient-text">Touch</span></>}
+          text={<>Questions about compliance, our services or Synfiniti AI? Request a consultation, a demo or a Proof of Value and we will get back to you.</>}
+          visual={<Scene {...scenes.contact} />}
+        />
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
@@ -88,7 +88,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>First Name *</FormLabel>
                         <FormControl>
-                          <Input {...field} className="bg-slate-800 border-slate-600 focus:border-violet-500" />
+                          <Input {...field} className="bg-white border-slate-300 focus:border-magenta-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -101,7 +101,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Last Name *</FormLabel>
                         <FormControl>
-                          <Input {...field} className="bg-slate-800 border-slate-600 focus:border-violet-500" />
+                          <Input {...field} className="bg-white border-slate-300 focus:border-magenta-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -115,7 +115,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel>Email Address *</FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} className="bg-slate-800 border-slate-600 focus:border-violet-500" />
+                        <Input type="email" {...field} className="bg-white border-slate-300 focus:border-magenta-400" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -128,7 +128,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel>Company</FormLabel>
                       <FormControl>
-                        <Input {...field} className="bg-slate-800 border-slate-600 focus:border-violet-500" />
+                        <Input {...field} className="bg-white border-slate-300 focus:border-magenta-400" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -142,16 +142,17 @@ export default function Contact() {
                       <FormLabel>Service Interest</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="bg-slate-800 border-slate-600 focus:border-violet-500">
+                          <SelectTrigger className="bg-white border-slate-300 focus:border-magenta-400">
                             <SelectValue placeholder="Select a service" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="risk-assessment">Risk Assessment</SelectItem>
                           <SelectItem value="compliance">Compliance Management</SelectItem>
-                          <SelectItem value="incident-response">Incident Response</SelectItem>
                           <SelectItem value="security-audits">Security Audits</SelectItem>
-                          <SelectItem value="platform">CyberGRC Platform</SelectItem>
+                          <SelectItem value="web-app-development">Web App Development</SelectItem>
+                          <SelectItem value="platform">Synfiniti AI Platform</SelectItem>
+                          <SelectItem value="pov">Synfiniti AI Proof of Value</SelectItem>
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
@@ -169,8 +170,8 @@ export default function Contact() {
                         <Textarea 
                           {...field} 
                           rows={4}
-                          placeholder="Tell us about your cybersecurity needs..."
-                          className="bg-slate-800 border-slate-600 focus:border-violet-500"
+                          placeholder="Tell us about your compliance needs..."
+                          className="bg-white border-slate-300 focus:border-magenta-400"
                         />
                       </FormControl>
                       <FormMessage />
@@ -194,58 +195,41 @@ export default function Contact() {
               <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center">
-                    <Mail className="w-5 h-5" />
+                  <div className="w-10 h-10 icon-badge rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-navy-600" />
                   </div>
                   <div>
-                    <p className="font-medium">contact@cybergrc.com</p>
-                    <p className="text-slate-300 text-sm">General inquiries</p>
+                    <a href={`mailto:${site.email}`} className="font-medium hover:text-magenta-600">{site.email}</a>
+                    <p className="text-slate-600 text-sm">General inquiries</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center">
-                    <Phone className="w-5 h-5" />
+                {site.phones.map((ph) => (
+                  <div key={ph} className="flex items-center space-x-3">
+                    <div className="w-10 h-10 icon-badge rounded-full flex items-center justify-center">
+                      <Phone className="w-5 h-5 text-navy-600" />
+                    </div>
+                    <a href={`tel:${ph.replace(/\s/g, "")}`} className="font-medium hover:text-magenta-600">{ph}</a>
                   </div>
-                  <div>
-                    <p className="font-medium">+1 (555) 123-CYBER</p>
-                    <p className="text-slate-300 text-sm">Business hours: M-F 9AM-6PM EST</p>
+                ))}
+                {site.address && (
+                  <div className="flex items-start space-x-3">
+                    <div className="w-10 h-10 icon-badge rounded-full flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-navy-600" />
+                    </div>
+                    <p className="font-medium">{site.address}</p>
                   </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="font-medium">123 Cyber Security Boulevard</p>
-                    <p className="text-slate-300 text-sm">Tech District, San Francisco, CA 94105</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="service-card p-6 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4">Emergency Response</h3>
-              <div className="bg-red-900 bg-opacity-30 border border-red-500 rounded-lg p-4">
-                <div className="flex items-center space-x-3 mb-2">
-                  <AlertTriangle className="w-6 h-6 text-red-400" />
-                  <span className="font-bold text-red-400">24/7 Incident Response</span>
-                </div>
-                <p className="text-sm mb-2">For cybersecurity emergencies</p>
-                <p className="font-bold text-lg">1-800-CYBER-911</p>
+                )}
               </div>
             </div>
 
             <div className="service-card p-6 rounded-xl">
               <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
               <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <Twitter className="w-5 h-5" />
+                <a href={site.social.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer" className="w-10 h-10 icon-badge rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <Linkedin className="w-5 h-5 text-navy-600" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-gradient-to-br from-violet-500 to-rose-500 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <Instagram className="w-5 h-5" />
+                <a href={site.social.twitter} aria-label="X / Twitter" target="_blank" rel="noreferrer" className="w-10 h-10 icon-badge rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <Twitter className="w-5 h-5 text-navy-600" />
                 </a>
               </div>
             </div>
