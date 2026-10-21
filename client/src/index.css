@@ -33,7 +33,18 @@
 @layer base {
   * { @apply border-border; }
 
-  html { scroll-behavior: smooth; }
+  /* Never allow sideways scrolling / a white strip on the right on phones */
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body { overflow-x: hidden; overflow-x: clip; max-width: 100%; }
+
+  img, svg, video { max-width: 100%; }
 
   body {
     @apply antialiased bg-background text-foreground;

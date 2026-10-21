@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="hero hero-bg relative overflow-hidden text-white">
+      <section className="hero hero-bg relative overflow-hidden text-white" style={{ contain: "paint" }}>
         <HeroBackground />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28 sm:pt-28 sm:pb-36 grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
           <motion.div className="text-center lg:text-left" variants={heroContainer} initial="hidden" animate="show">
